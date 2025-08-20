@@ -3,7 +3,7 @@
 int main(){
     int numeroUno, numeroDos, resultado;
 
-    printf("ingrese dos numeros enteros para multiplicar\n");
+    printf("ingrese dos numeros natural para multiplicar\n");
     scanf("%i %i", &numeroUno, &numeroDos);
 
     for (int i = 0; i < numeroDos; i++){
