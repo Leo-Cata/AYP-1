@@ -2,33 +2,26 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(){
-    int numberArray[10],randomNumb,isRepeated;
+int main()
+{
+    int numberArray[10], randomNumb, repeatedArray[10] = { 0 }, counter;
 
+    // crea una semilla para los valores random
     srand(time(NULL));
 
+    while (counter < 10) {
+        randomNumb = rand() % 11;
 
-    for(int i = 0; i< 20; i++){
-        randomNumb= rand() % 10;
-        printf("numeros random %i\n", randomNumb);
+        /*
+        si el numero random obtenido no esta marcado como 1 en el array de numeros repetidos
+        lo agrega al array final, marca como repetido y lo imprime
+        */
+        if (!repeatedArray[randomNumb]) {
+            numberArray[counter] = randomNumb;
+            repeatedArray[randomNumb] = 1;
 
-        for(int j = 0; j< 10; j++){
-            if(isRepeated== 0){
-                if(randomNumb == numberArray[j]){
-                    isRepeated=1;   
-                }
-            }
+            printf("%d ", numberArray[counter]);
+            counter++;
         }
-        
-        if(isRepeated == 0){
-            numberArray[i]=randomNumb;
-
-        }else{
-            isRepeated= 0;
-            i--;
-        }
-
-        printf("array %i, \n", numberArray[i]);
     }
-
 }
