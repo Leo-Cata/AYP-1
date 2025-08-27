@@ -6,12 +6,21 @@ arreglos inicializados en el código (hardcoded) imprimiendo el resultado
 */
 int main()
 {
+    /*
+    harcoded arrays para sumar
+    */
     int arrayOne[5] = { 1, 2, 3, 4, 5 };
     int arrayTwo[5] = { 1, 1, 1, 1, 1 };
 
+    /*
+    loopea 5 veces, sumando las pocisiones, imprimiendo una coma excepto en el ultimo valor
+    */
     printf("{");
     for (int i = 0; i < 5; i++) {
-        printf("%d ", arrayOne[i] + arrayTwo[i]);
+        if(i==4){
+        printf("%d}", arrayOne[i] + arrayTwo[i]);
+        }else{
+            printf("%d, ", arrayOne[i] + arrayTwo[i]);
+        }
     }
-    printf("}\0");
 }
