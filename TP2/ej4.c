@@ -13,10 +13,7 @@ int main(){
     /*
     inicializacion de variables y creacion de la semilla random
     */ 
-    int randomNumArray[randomArraySize],modaArray[modaSize], modaMaxValue=0, modaPosition=0,mediaSum=0;
-
-    float mediaValue=0;
-
+    int randomNumArray[randomArraySize],modaArray[modaSize],mediaSum=0;
     srand(time(NULL));
 
     /*
@@ -38,6 +35,7 @@ int main(){
     se guarda ese valor como un nuevo valor mas grande en la variable moda
     y guarda la posicion en la que se encuentra
     */
+   int modaMaxValue=0, modaPosition=0;
     for (int i = 0; i < modaSize; i++){
         if(modaArray[i]>modaMaxValue){
             modaMaxValue=modaArray[i];
@@ -49,7 +47,7 @@ int main(){
     printf("la moda es: %d, para el numero: %d \n", modaMaxValue, modaPosition);
 
     //calcula el valor de la media y la imprime
-    mediaValue= (float)mediaSum/50;
+    float mediaValue= (float)mediaSum/50;
     printf("la media es: %g \n", mediaValue);
     
     
