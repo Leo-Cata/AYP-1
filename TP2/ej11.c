@@ -11,17 +11,22 @@ imprimir el estado actual del diccionario. El programa termina con la palabra �
 */
 int main()
 {
-    char *dictionary[arrayLength][sentenceLength] = {
+    char dictionary[arrayLength][sentenceLength] = {
         "la", "de", "que", "el", "en", "y", "a", "los", "se", "del",
         "las", "por", "un", "con", "no", "una", "su", "para", "es", "al",
         "lo", "como", "más", "o", "pero", "sus", "le", "han", "sin", "sobre",
         "este", "ya", "entre", "cuando", "todo", "esta", "ser", "son", "dos", "también",
         "fue", "había", "era", "muy", "años", "hasta", "desde", "está", "mi", "porque", "él", "cuando", "tú", "sí", "nos", "ni", "contra", "tú", "él", "ella", "ellos", "nosotros", "vosotros", "ellos", "sí", "no", "cada", "otro", "sus", "mi", "nuestro", "tu", "su", "sus", "nuestro", "nuestra", "nuestros", "nuestras", "vuestro", "vuestra", "vuestros", "vuestras", "este", "esta", "estos", "estas", "aquel", "aquella", "aquellos", "aquellas", "alguno", "alguna", "algunos", "algunas", "ninguno", "ninguna", "ningunos", "ningunas", "otro", "otra"
-    },
-         *userSentence[sentenceLength * 3] = { "" };
+    };
 
-    while (userSentence != "fin") {
-        printf("Ingrese una oracion\n");
-        fgets(&userSentence, sizeof(userSentence), stdin);
+    char userSentence[90] = "";
+
+    while (1) {
+        printf("palabra: ");
+        fgets(userSentence, sizeof(userSentence), stdin);
+        userSentence[strcspn(userSentence, "\n")] = "\0";
+        if (strcmp(userSentence, "fin" == 0)) {
+            break;
+        }
     }
 }
