@@ -7,7 +7,7 @@ Utilizando lo realizado en el ejercicio 10 del práctico 3, transformá cada lí
 #include <stdio.h>
 #include <time.h>
 #define maxLengthNames 50
-#define DNILength 8
+#define DNILength 9
 
 // estructuras dadas por el ejercicio
 struct Fecha {
@@ -28,7 +28,7 @@ int guardarDatos(struct Persona* punteroPersonaDatos)
 {
 
     // guarda estos datos en DatosImportados.dat
-    FILE* archivo = fopen("DatosImportados2.dat", "ab");
+    FILE* archivo = fopen("datosImportados2.dat", "ab");
 
     if (archivo == NULL) {
         printf("archivo no encontrado\n");
