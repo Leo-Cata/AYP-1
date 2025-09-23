@@ -94,12 +94,12 @@ int main()
     // mientras que lo escaneado en el archivo sean 6 campos
     // setea la informacion al struct
     while (fscanf(archivo, "%[^;];%[^;];%d/%d/%d;%d;",
-            personaDatos.nombre,
-            personaDatos.apellido,
-            &personaDatos.fechaNacimiento.dia,
-            &personaDatos.fechaNacimiento.mes,
-            &personaDatos.fechaNacimiento.anio,
-            &personaDatos.edad)
+               personaDatos.nombre,
+               personaDatos.apellido,
+               &personaDatos.fechaNacimiento.dia,
+               &personaDatos.fechaNacimiento.mes,
+               &personaDatos.fechaNacimiento.anio,
+               &personaDatos.edad)
         == 6) {
 
         // lee 1 caracter, seguido de lo que leyo, si no es un salto de linea y no es el end of file, lo devuelve
