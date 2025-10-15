@@ -11,30 +11,31 @@ ejemplo, si el usuario ingresa 5, el programa debe imprimir lo siguiente:
 
 #include <stdio.h>
 
-int printPiramide(int largo)
+int printPiramide(int largoInicial, int largoTotal)
 {
-    if (largo == 0) {
+    // si el largo inicial, osea 1+1 cada iteracion es mayor que el total buscado termina
+    if (largoInicial > largoTotal) {
         return 1;
     }
 
-    // loop para impormer espacios
-    for (int i = 0; i < largo - 1; i++) {
+    // imprime espacios
+    for (int i = 0; i < largoTotal - largoInicial; i++) {
         printf(" ");
     }
 
-    // loop para imprimir los numeros
-    for (int i = largo; i >= 0; i--) {
-
-        printf("A");
+    // imprime tantos numeros como el numero inicial + 1 cada interacion
+    for (int i = 0; i < largoInicial; i++) {
+        printf("%d ", largoInicial);
     }
+
     printf("\n");
 
-    return printPiramide(largo - 1);
+    return printPiramide(largoInicial + 1, largoTotal);
 };
 
 int main()
 {
     int piramideLargo = 5;
 
-    printPiramide(piramideLargo);
+    printPiramide(1, piramideLargo);
 }
