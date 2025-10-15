@@ -1,11 +1,13 @@
 {
-    "C_Cpp.default.compilerPath": "C:/cygwin64/bin/gcc.exe",
-    "files.associations": {
-        "time.h": "c",
-        "cdefs.h": "c",
-        "stdio.h": "c",
-        "stdbool.h": "c",
-        "math.h": "c",
-        "reent.h": "c"
-    }
+  "C_Cpp.default.compilerPath": "C:/cygwin64/bin/gcc.exe",
+  "files.associations": {
+    "time.h": "c",
+    "cdefs.h": "c",
+    "stdio.h": "c",
+    "stdbool.h": "c",
+    "math.h": "c",
+    "reent.h": "c",
+    "unistd.h": "c",
+    "typeinfo": "c"
+  }
 }
