@@ -8,6 +8,7 @@
     "math.h": "c",
     "reent.h": "c",
     "unistd.h": "c",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "stdlib.h": "c"
   }
 }
