@@ -6,7 +6,7 @@ Modificá el programa del ejercicio anterior para que en vez de 10000 genere 100
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define maxLargo 100000
+#define maxLargo 200000
 
 void bubbleSort(int* arrayAOrdenar)
 {
@@ -101,7 +101,7 @@ int main()
     clock_t end = clock();
 
     // calcula el tiempo con end - start / cpu clocks por segundo
-    double tiempo = (end - start);
+    double tiempo = (end - start) / CLOCKS_PER_SEC;
     printf("Tiempo de ordenamiento: %.8f segundos\n\n", tiempo);
 
     // mide el tiempo de busqueda lineal
@@ -109,14 +109,14 @@ int main()
     busquedaLineal(numerosHardcodeados, arrayConIntsRandom);
     end = clock();
 
-    tiempo = (end - start);
+    tiempo = (end - start) / CLOCKS_PER_SEC;
     printf("\n\nTiempo de busqueda lineal: %f segundos\n\n", tiempo);
 
     start = clock();
     busquedaBinaria(numerosHardcodeados, arrayConIntsRandom);
     end = clock();
 
-    tiempo = (end - start);
+    tiempo = (end - start) / CLOCKS_PER_SEC;
 
     printf("\n\nTiempo de busqueda binaria: %f segundos\n\n", tiempo);
 
