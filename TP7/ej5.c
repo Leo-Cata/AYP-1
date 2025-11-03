@@ -172,26 +172,25 @@ int quickSort(int* arrayAOrdenar, int inicio, int fin)
 
 int main()
 {
-    int* arrayConIntsRandom = malloc(maxLargo * sizeof(int));
-    int numerosHardcodeados[10] = { 4821, 156, 7395, 8502, 314, 99673, 2458, 5991, 1025, 8740 };
+    int* arrayASortear = malloc(maxLargo * sizeof(int));
 
     // genera una semilla random
     srand(time(NULL));
 
-    // pone numeros al azar del 0 al 10k
+    // pone numeros al azar del 0 al maxLargo
     for (int i = 0; i < maxLargo; i++) {
-        arrayConIntsRandom[i] = rand() % maxLargo;
+        arrayASortear[i] = rand() % maxLargo;
     }
-    int opcion;
+    int opcionDeSorting;
     printf("0 bubble, 1 merge, 2 quick ");
-    scanf("%d", &opcion);
+    scanf("%d", &opcionDeSorting);
     clock_t start;
     clock_t end;
 
     // puntero a funcion
     int (*funcionDeSorting)(int*, int, int) = NULL;
 
-    switch (opcion) {
+    switch (opcionDeSorting) {
     case 0:
         funcionDeSorting = bubbleSort;
         break;
@@ -205,20 +204,12 @@ int main()
         break;
     }
     start = clock();
-    funcionDeSorting(arrayConIntsRandom, 0, maxLargo - 1);
+    funcionDeSorting(arrayASortear, 0, maxLargo - 1);
     end = clock();
 
     // calcula el tiempo con end - start / cpu clocks por segundo
     double tiempo = (end - start) / CLOCKS_PER_SEC;
     printf("\nTiempo de ordenamiento: %f \n", tiempo);
 
-    for (int i = 0; i < maxLargo - 1; i++) {
-        if (arrayConIntsRandom[i] > arrayConIntsRandom[i + 1]) {
-            printf("esta mal ordenado che");
-            return 0;
-        }
-    }
-    printf("esta re piola");
-
-    free(arrayConIntsRandom);
+    free(arrayASortear);
 }
