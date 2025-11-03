@@ -6,13 +6,13 @@ que contenga paréntesis izquierdos y derechos, e indique si los mismos están b
 
 #include <stdio.h>
 #include <string.h>
-#define maxOracion 100
+#define maxOracionLargo 100
 
-int leerParentesis(char oracion[], int* parentesisIzqCount, int* parentesisDerCount)
+int analizarParentesis(char oracion[], int* parentesisIzqCount, int* parentesisDerCount)
 {
     // si llego al final return
     if (oracion[0] == '\0') {
-        printf("hay: %d '(' y %d ')', %s", *parentesisIzqCount, *parentesisDerCount, (*parentesisDerCount == *parentesisIzqCount ? "estan balanciados" : "no estan balanciados"));
+        printf("hay: %d '(' y %d ')', %s", *parentesisIzqCount, *parentesisDerCount, (*parentesisDerCount == *parentesisIzqCount ? "estan balanceados" : "no estan balanciados"));
         return 1;
     }
 
@@ -20,20 +20,19 @@ int leerParentesis(char oracion[], int* parentesisIzqCount, int* parentesisDerCo
     //  el ++ tiene que esta por fuera de los parentesis, si no incremental el puntero y no el valor
     if (oracion[0] == '(') {
         (*parentesisIzqCount)++;
-    }
-    if (oracion[0] == ')') {
+    } else if (oracion[0] == ')') {
         (*parentesisDerCount)++;
     }
 
     // se llama asi misma
-    return leerParentesis(&oracion[1], parentesisIzqCount, parentesisDerCount);
+    return analizarParentesis(&oracion[1], parentesisIzqCount, parentesisDerCount);
 }
 
 int main()
 {
 
-    char oracion[maxOracion] = "(es decir, (si cada paréntesis ((izquierdo tiene su correspond))i)ente ho)";
+    char oracion[maxOracionLargo] = "(es decir, (si cada pa)réntesis ((izquierdo tiene su correspond))i)ente ho)";
     int parentesisIzq = 0, parentesisDer = 0;
 
-    leerParentesis(oracion, &parentesisIzq, &parentesisDer);
+    analizarParentesis(oracion, &parentesisIzq, &parentesisDer);
 }

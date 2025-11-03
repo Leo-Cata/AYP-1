@@ -18,6 +18,7 @@ struct Persona {
     char apellido[maxLengthNames];
     struct Fecha fechaNacimiento;
     int edad;
+    int dni;
 };
 
 // funcion que lista todos los elementos
@@ -25,14 +26,15 @@ void listAllRegisters(struct Persona* punteroPersonas, int personasLeidas)
 {
     // loopea por todo el array e imprime cada uno
     for (int i = 0; i < personasLeidas; i++) {
-        printf("%d) Nombre: %s, Apellido: %s, Fecha de nacimiento: %d/%d/%d, Edad: %d\n",
+        printf("%d) Nombre: %s, Apellido: %s, Fecha de nacimiento: %d/%d/%d, Edad: %d, DNI: %d\n",
             i,
             punteroPersonas[i].nombre,
             punteroPersonas[i].apellido,
             punteroPersonas[i].fechaNacimiento.dia,
             punteroPersonas[i].fechaNacimiento.mes,
             punteroPersonas[i].fechaNacimiento.anio,
-            punteroPersonas[i].edad);
+            punteroPersonas[i].edad,
+            punteroPersonas[i].dni);
     }
 }
 
@@ -54,7 +56,8 @@ void findByNumber(struct Persona* punteroPersonas, int personasLeidas)
             punteroPersonas[registerNumber].fechaNacimiento.dia,
             punteroPersonas[registerNumber].fechaNacimiento.mes,
             punteroPersonas[registerNumber].fechaNacimiento.anio,
-            punteroPersonas[registerNumber].edad);
+            punteroPersonas[registerNumber].edad,
+            punteroPersonas[registerNumber].dni);
     }
 }
 
@@ -112,7 +115,8 @@ int editByNumber(struct Persona* punteroPersonas, int personasLeidas)
         punteroPersonas[registerNumberToEdit].fechaNacimiento.dia,
         punteroPersonas[registerNumberToEdit].fechaNacimiento.mes,
         punteroPersonas[registerNumberToEdit].fechaNacimiento.anio,
-        punteroPersonas[registerNumberToEdit].edad);
+        punteroPersonas[registerNumberToEdit].edad,
+        punteroPersonas[registerNumberToEdit].dni);
 
     printf("Ingrese nuevo NOMBRE APELLIDO FECHA(DD/MM/AAAA) y EDAD\n");
     scanf("%s %s %d/%d/%d %d",
@@ -121,7 +125,8 @@ int editByNumber(struct Persona* punteroPersonas, int personasLeidas)
         &punteroPersonas[registerNumberToEdit].fechaNacimiento.dia,
         &punteroPersonas[registerNumberToEdit].fechaNacimiento.mes,
         &punteroPersonas[registerNumberToEdit].fechaNacimiento.anio,
-        &punteroPersonas[registerNumberToEdit].edad);
+        &punteroPersonas[registerNumberToEdit].edad,
+        &punteroPersonas[registerNumberToEdit].dni);
 
     // abre el archivo, escribe la nueva info y lo cierra
     FILE* archivo = fopen("DatosImportados.dat", "wb");
@@ -137,13 +142,74 @@ int editByNumber(struct Persona* punteroPersonas, int personasLeidas)
     printf("Se han guardado los cambias");
 }
 
+// quick sort
+int quickSort(struct Persona* arrayAOrdenar, int inicio, int fin)
+{
+    // da el promedio de los 3 valores
+    if (inicio < fin) {
+        // calcula el valor medio
+        int mitad = inicio + (fin - inicio) / 2;
+        struct Persona primerElemento = arrayAOrdenar[inicio];
+        struct Persona elementoMedio = arrayAOrdenar[mitad];
+        struct Persona ultimoElemento = arrayAOrdenar[fin];
+
+        // calcula cual de los 3 elementos es el del medio y lo setea como pivote
+        int pivoteIndice;
+        if ((primerElemento.dni < elementoMedio.dni && elementoMedio.dni < ultimoElemento.dni) || (ultimoElemento.dni < elementoMedio.dni && elementoMedio.dni < primerElemento.dni)) {
+            pivoteIndice = mitad;
+        } else if ((elementoMedio.dni < primerElemento.dni && primerElemento.dni < ultimoElemento.dni) || (ultimoElemento.dni < primerElemento.dni && primerElemento.dni < elementoMedio.dni)) {
+            pivoteIndice = inicio;
+        } else {
+            pivoteIndice = fin;
+        }
+
+        struct Persona pivoteValor = arrayAOrdenar[pivoteIndice];
+
+        // mueve el valor en la posicion del pivote al final, y la del final a la posicion del pivote
+        struct Persona valorTemporal = arrayAOrdenar[pivoteIndice]; // 1 [2] 3
+        arrayAOrdenar[pivoteIndice] = arrayAOrdenar[fin]; // 1 3 3
+        arrayAOrdenar[fin] = valorTemporal; // 1 3 2
+
+        int indice = inicio;
+
+        // para cada elemento desde el inicio hasta el fin
+        // si el valor en [i] es igual o menor al pivote
+        //  incrementa el indice
+        // asigna temporalmente el valor en el indice
+        //  asigna el valor en posicion [indice] al valor en [i]
+        // y asigna el valor en [i] al valor temporal
+        // hace que todos los elementos mayores al pivote queden de un lado, y los menores al otro
+        for (int i = inicio; i < fin; i++) {
+            if (arrayAOrdenar[i].dni <= pivoteValor.dni) {
+                valorTemporal = arrayAOrdenar[i];
+                arrayAOrdenar[i] = arrayAOrdenar[indice];
+                arrayAOrdenar[indice] = valorTemporal;
+                indice++;
+            }
+        }
+
+        // setea el valor del indice + 1 a la var temp
+        // setea el valor en indice +1 con el valor del final
+        // setea el valor en [fin] con el valor temporal
+        // y guarda donde esta el pivote como indice +1
+        valorTemporal = arrayAOrdenar[indice];
+        arrayAOrdenar[indice] = arrayAOrdenar[fin];
+        arrayAOrdenar[fin] = valorTemporal;
+        int indiceDondeQuedoPivote = indice;
+
+        quickSort(arrayAOrdenar, inicio, indiceDondeQuedoPivote - 1);
+        quickSort(arrayAOrdenar, indiceDondeQuedoPivote + 1, fin);
+        return 0;
+    }
+}
+
 int main()
 {
     // variable para elegir la operacion
     int menuOperation;
 
     // carga el archivo
-    FILE* archivo = fopen("DatosImportados.dat", "rb");
+    FILE* archivo = fopen("datosImportados.dat", "rb");
     if (archivo == NULL) {
         printf("Archivo no encontrado");
         return 1;
@@ -157,7 +223,7 @@ int main()
     fclose(archivo);
 
     // instrucciones para correr el programa
-    printf("ingrese un numero de acuerdo a la operacion\n1. mostrar todo el registro\n2. buscar y mostrar\n3. borrar un elemento\n4. editar un elemento\n");
+    printf("ingrese un numero de acuerdo a la operacion\n1. mostrar todo el registro\n2. buscar y mostrar\n3. borrar un elemento\n4. editar un elemento\n5. quickSort por DNI\n");
     scanf("%d", &menuOperation);
 
     // switch para seleccionar la operacion
@@ -174,7 +240,11 @@ int main()
     case 4:
         editByNumber(personas, personasLeidas);
         break;
+    case 5:
+        quickSort(personas, 0, personasLeidas - 1);
+        listAllRegisters(personas, personasLeidas);
 
+        break;
     default:
         break;
     }

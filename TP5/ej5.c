@@ -19,6 +19,7 @@ struct Persona {
     char apellido[maxLengthNames];
     struct Fecha fechaNacimiento;
     int edad;
+    int dni;
 };
 
 // funcion para guardar los datos que estan en el struct, al archivo datosImportados.dat
@@ -91,16 +92,20 @@ int main()
         return 1;
     }
 
+    printf("leer datos");
+
     // mientras que lo escaneado en el archivo sean 6 campos
     // setea la informacion al struct
-    while (fscanf(archivo, "%[^;];%[^;];%d/%d/%d;%d;",
+    while (fscanf(archivo, "%[^;];%[^;];%d/%d/%d;%d;%d",
                personaDatos.nombre,
                personaDatos.apellido,
                &personaDatos.fechaNacimiento.dia,
                &personaDatos.fechaNacimiento.mes,
                &personaDatos.fechaNacimiento.anio,
-               &personaDatos.edad)
-        == 6) {
+               &personaDatos.edad,
+               &personaDatos.dni)
+        == 7) {
+        printf("leyo datos");
 
         // lee 1 caracter, seguido de lo que leyo, si no es un salto de linea y no es el end of file, lo devuelve
         // esto permite que el archivo este separado tanto por saltos de lineas como ; entre cada persona
@@ -115,6 +120,7 @@ int main()
             fclose(archivo);
             return 1;
         }
+        printf("guardar datos");
         // guarda los datos
         guardarDatos(&personaDatos);
 
